@@ -1,0 +1,8 @@
+.email-list-row{
+    border-radius: 5px;
+    border:2px solid #ee990a;
+    margin-bottom: 10px;
+}
+ul{
+    list-style: decimal-leading-zero;
+}

@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/controllers/mainController.js' %}"></script>
+{% endblock %}
+{% block main %}
+<div class="pull-right">
+    <div class="pull-left">
+        <h3 style="margin: 0 20px 0 0;padding: 4px;">{{user}}</h3>
+    </div>
+    <div class="pull-right">
+        {% if user.is_authenticated %}
+            <a class="btn btn-warning" href="{% url 'emails:logout' %}">Logout</a>
+        {% else %}
+            <a class="btn btn-success" href="{% url 'social:begin' 'google-oauth2' %}">Login</a>
+        {% endif %}
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="container">
+    {% if user.is_authenticated %}
+    <div class="page-header">
+        <h2 class="text-center">{{user}} Emails</h2>
+    </div>
+    <ul ng-app="App" ng-controller="MainCtrl as mc">
+        <h3 ng-if="mc.loading" class="text-center">Please wait ...</h3>
+        <li class="row email-list-row" ng-repeat="mail in mc.emails track by $index" ng-if="!mc.loading">
+            <div class="col-md-12">
+                <p ng-if="mail.Subject"><b>SUBJECT:</b> [{ mail.Subject }]</p>
+                <p ng-if="mail.From"><b>FROM:</b> [{ mail.From }]</p>
+                <p ng-if="mail.Reply-To"><b>Reply-To:</b> [{ mail.Reply-To }]</p>
+                <p ng-if="mail.snippet"><b>Snippet:</b> [{ mail.snippet }]</p>
+                <p ng-if="mail.Date"><b>Date:</b> [{ mail.Date }]</p>
+            </div>
+        </li>
+    </ul>
+    {% else %}
+    <div class="page-header">
+        <h1 class="text-center">Emails are unavailable.</h1>
+    </div>
+    <p class="text-center">Seems like you not authorized</p>
+    {% endif %}
+</div>
+{% endblock %}

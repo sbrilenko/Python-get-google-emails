@@ -1,0 +1,4 @@
+Django==1.10
+python-social-auth==0.2.21
+google-api-python-client
+djangorestframework==3.4.5
