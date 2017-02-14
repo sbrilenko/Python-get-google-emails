@@ -20,4 +20,7 @@ https://github.com/omab/python-social-auth
 
 6. Allow to logout
 
+7. Allow to logback in
+
+
 
