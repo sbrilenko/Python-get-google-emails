@@ -23,14 +23,18 @@ class Emails(APIView):
     renderer_classes = (JSONRenderer,)
 
     def get(self, request):
-        user = request.user;
+        user = request.user
         social = user.social_auth.get(provider='google-oauth2')
         access_token = social.extra_data['access_token']
+        print(access_token)
         email_tools = EmailTools(access_token, user)
+        print(email_tools)
+        print(EmailTools)
         try:
-            emails = email_tools.email_list()
+            emails = email_tools.get_emails_list()
             return Response(emails)
         except errors.HttpError, error:
             return Response('An error occurred: %s' % error)
-        except:
+        except Exception as e:
+            raise e
             return Response([])
