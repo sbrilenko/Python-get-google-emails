@@ -5,7 +5,7 @@ angular.module('App')
         var main = this;
         main.emails = [];
 
-        main.retrieve = function () {
+        main.getMails = function () {
             main.loading = true;
             $http({ 'method': 'GET', 'url': API.emails })
                 .then(
@@ -24,5 +24,5 @@ angular.module('App')
                 );
         };
 
-        main.retrieve();
+        main.getMails();
     }]);
